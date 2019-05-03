@@ -59,6 +59,7 @@ fun inflater(){
                         listPeople.add(response.body()!!.people!![character])
                         Log.i("tag1", "Se ha añadidio")
                     }
+                    inflater()
                 }
             }
 
