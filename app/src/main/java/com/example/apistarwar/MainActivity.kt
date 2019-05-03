@@ -2,9 +2,11 @@ package com.example.apistarwar
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.widget.Toast
+import com.example.apistarwar.adapter.PeopleListAdapter
 import com.example.apistarwar.api.RetrofitClient
 import com.example.apistarwar.data.All
 import com.example.apistarwar.data.People
@@ -16,7 +18,9 @@ import retrofit2.Retrofit
 
 class MainActivity : AppCompatActivity() {
 
-    val list: MutableList<People> = ArrayList()
+    val listPeople: MutableList<People> = ArrayList()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,7 +35,14 @@ class MainActivity : AppCompatActivity() {
         CallApi()
     }
 
+fun inflater(){
+        val layoutManager = LinearLayoutManager(this@MainActivity)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        recyclerView.layoutManager = layoutManager
+        val adapter =PeopleListAdapter(this@MainActivity, listPeople)
+        recyclerView.adapter = adapter
 
+}
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
@@ -45,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val i: Int = response.body()!!.people!!.size
                     for (character in 0 until i) {
-                        list.add(response.body()!!.people!![character])
+                        listPeople.add(response.body()!!.people!![character])
                         Log.i("tag1", "Se ha añadidio")
                     }
                 }
