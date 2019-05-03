@@ -1,4 +1,4 @@
-package com.example.apistarwar
+package com.example.apistarwar.activitys
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.widget.Toast
+import com.example.apistarwar.R
 import com.example.apistarwar.adapter.PeopleListAdapter
 import com.example.apistarwar.api.RetrofitClient
 import com.example.apistarwar.data.All
@@ -14,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class MainActivity : AppCompatActivity() {
 
