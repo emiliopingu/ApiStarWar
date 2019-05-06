@@ -5,15 +5,11 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.widget.Toast
 import com.example.apistarwar.R
-import com.example.apistarwar.adapter.PeopleListAdapter
-import com.example.apistarwar.adapter.PlanetaListAdapter
 import com.example.apistarwar.api.RetrofitClient
-import com.example.apistarwar.data.All
-import com.example.apistarwar.data.People
 import com.example.apistarwar.data.Planet
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_planeta.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,8 +36,21 @@ class PlanetaActivity : AppCompatActivity() {
 
                   var p:Planet= response.body()!!
 
+                    
 
-                 inflater()
+                    val text:String ="Planet name: " +p.name+
+                            "\n" + " rotation period "+p.rotation +
+                            "\n" + " orbital rotation "+p.orbital +
+                            "\n" + " diameter "+p.diameter+
+                            "\n" + " climate "+p.climate+
+                            "\n" + " gravity: "+p.gravity+
+                            "\n" + " terrain: "+p.terrain+
+                            "\n" + " surface: "+p.surfaceWater+
+                            "\n" + "population "+p.population+
+                            "\n" + "residents "+p.residents+
+                            "\n" + " films "+p.films
+
+                    tvPlanet.text=text
 
 
                 }
@@ -54,13 +63,5 @@ class PlanetaActivity : AppCompatActivity() {
         })
     }
 
-    fun inflater() {
-        val layoutManager = LinearLayoutManager(this)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.layoutManager = layoutManager
-        val adapter = PlanetaListAdapter(this@PlanetaActivity, this!!.planet!!)
-        recyclerView.adapter = adapter
-
-    }
 
 }
