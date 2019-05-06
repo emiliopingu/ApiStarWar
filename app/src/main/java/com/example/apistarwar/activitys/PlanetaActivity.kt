@@ -26,7 +26,8 @@ class PlanetaActivity : AppCompatActivity() {
 
         callApi(url)
     }
-
+// implementar nuevallamada
+    
 
     fun callApi(url: String) {
         RetrofitClient.service.getPlanet(url).enqueue(object : Callback<Planet> {
