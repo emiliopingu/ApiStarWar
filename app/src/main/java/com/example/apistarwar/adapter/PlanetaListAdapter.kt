@@ -17,7 +17,7 @@ class PlanetaListAdapter(val context: Context,val planet:Planet):RecyclerView.Ad
 
 
     override fun onBindViewHolder(holder:viewHolder, p1: Int) {
-       holder.view.planetaName.text=planet.name
+
     }
 
     override fun getItemCount(): Int {

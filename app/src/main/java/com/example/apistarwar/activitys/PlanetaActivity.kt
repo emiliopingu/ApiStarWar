@@ -11,6 +11,7 @@ import com.example.apistarwar.adapter.PeopleListAdapter
 import com.example.apistarwar.adapter.PlanetaListAdapter
 import com.example.apistarwar.api.RetrofitClient
 import com.example.apistarwar.data.All
+import com.example.apistarwar.data.People
 import com.example.apistarwar.data.Planet
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -19,6 +20,7 @@ import retrofit2.Response
 
 class PlanetaActivity : AppCompatActivity() {
 
+        var planet: Planet? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +36,14 @@ class PlanetaActivity : AppCompatActivity() {
         RetrofitClient.service.getPlanet(url).enqueue(object : Callback<Planet> {
             override fun onResponse(call: Call<Planet>, response: Response<Planet>) {
                 if (response.isSuccessful) {
-                    Log.i("llamadaPlaneta", "Se ha llamado a planeta")
-                    inflater(response.body())
+                    Log.i("llamadaPlaneta", "Se ha llamado a planeta "+url)
+
+                  var p:Planet= response.body()!!
+
+
+                 inflater()
+
+
                 }
             }
 
@@ -46,11 +54,11 @@ class PlanetaActivity : AppCompatActivity() {
         })
     }
 
-    fun inflater(planet:Planet?) {
+    fun inflater() {
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = layoutManager
-        val adapter = PlanetaListAdapter(this@PlanetaActivity,planet)
+        val adapter = PlanetaListAdapter(this@PlanetaActivity, this!!.planet!!)
         recyclerView.adapter = adapter
 
     }

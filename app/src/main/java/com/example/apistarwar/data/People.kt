@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.net.URL
 
-class People (
+class People(
     @SerializedName("name")
     @Expose
     var name: String? = null,
@@ -15,7 +15,7 @@ class People (
 
     @SerializedName("mass")
     @Expose
-    var mass:String?=null,
+    var mass: String? = null,
 
     @SerializedName("hair_color")
     @Expose
@@ -49,7 +49,7 @@ class People (
 
     @SerializedName("films")
     @Expose
-    var films: List<String>?=null,
+    var films: List<String>? = null,
 
 
     @SerializedName("species")
@@ -79,7 +79,9 @@ class People (
 
     @SerializedName("url")
     @Expose
-    var url: URL? = null
+    var url: URL? = null,
+
+    var Planet: Planet? = null
 
 
 )
