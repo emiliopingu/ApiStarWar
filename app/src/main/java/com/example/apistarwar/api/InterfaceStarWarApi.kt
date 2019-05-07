@@ -2,6 +2,7 @@ package com.example.apistarwar.api
 
 import com.example.apistarwar.data.All
 import com.example.apistarwar.data.Film
+import com.example.apistarwar.data.People
 import com.example.apistarwar.data.Planet
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,6 +13,7 @@ interface InterfaceStarWarApi {
     @GET("people") fun getPeople(): Call<All>
     @GET() fun getPlanet(@Url URL:String): Call<Planet>
     @GET fun getFilm(@Url URL: String):Call <Film>
+    @GET fun getResidents(@Url URL: List<String>?):Call <People>
 
 
 }

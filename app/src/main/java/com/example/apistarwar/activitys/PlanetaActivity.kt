@@ -7,6 +7,7 @@ import android.util.Log
 import com.example.apistarwar.R
 import com.example.apistarwar.api.RetrofitClient
 import com.example.apistarwar.data.Film
+import com.example.apistarwar.data.People
 import com.example.apistarwar.data.Planet
 import kotlinx.android.synthetic.main.activity_planeta.*
 import retrofit2.Call
@@ -79,7 +80,19 @@ class PlanetaActivity : AppCompatActivity() {
 
                     }
 
+                    val y: Int = p.residents!!.size
+                    for(character in 0 until y){
+                        RetrofitClient.service.getResidents(p.residents).enqueue(object : Callback<People>{
+                            override fun onResponse(call: Call<People>, response: Response<People>) {
+                                Log.i("llamadaPlaneta", "Se ha llamado a residents ")
+                            }
 
+                            override fun onFailure(call: Call<People>, t: Throwable) {
+                                Log.i("llamadaPlaneta5", "No Se ha llamado a residents ")
+                            }
+
+                        })
+                    }
                 }
             }
 
