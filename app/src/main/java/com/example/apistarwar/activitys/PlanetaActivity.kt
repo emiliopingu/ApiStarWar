@@ -15,7 +15,7 @@ import retrofit2.Response
 
 class PlanetaActivity : AppCompatActivity() {
 
-    var planet: Planet? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,24 +42,32 @@ class PlanetaActivity : AppCompatActivity() {
 
 
                                 val f: Film = response.body()!!
-                             f.title= p.listFilms!![film1].title
+
+                                for(y in 0 until p.listFilms!!.size ){
+                                 f.title= p.listFilms!![y].title
+
+
+                                    val text: String = "Planet name: " + p.name +
+                                            "\n" + " rotation period " + p.rotation +
+                                            "\n" + " orbital rotation " + p.orbital +
+                                            "\n" + " diameter " + p.diameter +
+                                            "\n" + " climate " + p.climate +
+                                            "\n" + " gravity: " + p.gravity +
+                                            "\n" + " terrain: " + p.terrain +
+                                            "\n" + " surface: " + p.surfaceWater +
+                                            "\n" + "population " + p.population +
+                                            "\n" + "residents " + p.residents +
+                                            "\n" + " films " + p.listFilms!![film1].title
+
+                                    tvPlanet.text = text
+                                }
 
 
 
 
-                                val text: String = "Planet name: " + p.name +
-                                        "\n" + " rotation period " + p.rotation +
-                                        "\n" + " orbital rotation " + p.orbital +
-                                        "\n" + " diameter " + p.diameter +
-                                        "\n" + " climate " + p.climate +
-                                        "\n" + " gravity: " + p.gravity +
-                                        "\n" + " terrain: " + p.terrain +
-                                        "\n" + " surface: " + p.surfaceWater +
-                                        "\n" + "population " + p.population +
-                                        "\n" + "residents " + p.residents +
-                                        "\n" + " films " + f.title
 
-                                tvPlanet.text = text
+
+
 
                             }
 
