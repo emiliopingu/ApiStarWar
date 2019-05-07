@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Film (
 
-     @SerializedName("name")
+     @SerializedName("title")
      @Expose
-     var name:String?=null
+     var title:String?=null
  )
