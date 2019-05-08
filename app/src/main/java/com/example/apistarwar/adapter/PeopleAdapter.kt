@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import com.example.apistarwar.R
 import com.example.apistarwar.activitys.SegundaVista
 import com.example.apistarwar.data.People
+import com.example.apistarwar.data.Species
 import kotlinx.android.synthetic.main.people_recycle_view_list.view.*
 
 
 class PeopleAdapter(val context: Context, val personajes:MutableList<People>):  RecyclerView.Adapter<PeopleAdapter.viewHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, p1: Int): viewHolder {
+
+    val listSpecies:ArrayList<String> = ArrayList()
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): viewHolder {
             val view = LayoutInflater.from(context).inflate(R.layout.people_recycle_view_list, parent, false)
             return viewHolder(view)
         }
@@ -23,31 +26,37 @@ class PeopleAdapter(val context: Context, val personajes:MutableList<People>):  
         override fun onBindViewHolder(holder: viewHolder, position: Int) {
             val personaje = personajes[position]
             holder.view.nombreView.text = personaje.name
-            holder.view.especieView.text = personaje.species.toString()
-            holder.view.vehiculoView.text = personaje.vehicles.toString()
-            holder.view.naveView.text = personaje.starships.toString()
-            holder.view.planetaView.text = personaje.homeworld
+            holder.view.especieView.text = "Species"
+            holder.view.vehiculoView.text = "Vehicles"
+            holder.view.naveView.text = "StarShips"
+            holder.view.planetaView.text = "HomeWorld"
 
             holder.view.planetaView.setOnClickListener {
-                val intent = Intent(context, SegundaVista::class.java)
-                intent.putExtra("urlEspecie", personaje.species.toString())
-                context.startActivity(intent)
+                val intent1 = Intent(context, SegundaVista::class.java)
+                intent1.putExtra("urlPlaneta", personaje.homeworld)
+                context.startActivity(intent1)
             }
-            holder.view.planetaView.setOnClickListener {
-                val intent = Intent(context, SegundaVista::class.java)
-                intent.putExtra("urlVehicles",personaje.vehicles.toString())
-                context.startActivity(intent)
+            holder.view.especieView.setOnClickListener {
+
+                for(x in 0 until personaje.species!!.size) {
+                    listSpecies.add(personaje.species!![x])
+
+                    val intent2 = Intent(context, SegundaVista::class.java)
+                    intent2.putExtra("urlEspecie",  listSpecies)
+                    context.startActivity(intent2)
+                }
             }
-            holder.view.planetaView.setOnClickListener {
-                val intent = Intent(context, SegundaVista::class.java)
-                intent.putExtra("urlStarShips", personaje.starships.toString())
-                context.startActivity(intent)
+            holder.view.vehiculoView.setOnClickListener {
+                val intent3 = Intent(context, SegundaVista::class.java)
+                intent3.putExtra("urlVehicles",personaje.vehicles.toString())
+                context.startActivity(intent3)
             }
-            holder.view.planetaView.setOnClickListener {
-                val intent = Intent(context, SegundaVista::class.java)
-                intent.putExtra("urlPlaneta", personaje.homeworld)
-                context.startActivity(intent)
+            holder.view.naveView.setOnClickListener {
+                val intent4 = Intent(context, SegundaVista::class.java)
+                intent4.putExtra("urlStarShips", personaje.starships.toString())
+                context.startActivity(intent4)
             }
+
 
 
         }

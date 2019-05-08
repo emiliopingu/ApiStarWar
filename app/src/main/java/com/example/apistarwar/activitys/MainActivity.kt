@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     inflater()
                 }
-            inflater()
+
             }
 
             override fun onFailure(call: Call<All>, t: Throwable) {
