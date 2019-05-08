@@ -8,6 +8,7 @@ import com.example.apistarwar.R
 import com.example.apistarwar.adapter.PeopleAdapter
 import com.example.apistarwar.api.RetrofitCliente
 import com.example.apistarwar.data.All
+import com.example.apistarwar.data.People
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,7 +18,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
 
-
+    val listPeople: MutableList<People> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         RetrofitCliente.service.getPeople().enqueue(object : Callback<All> {
             override fun onResponse(call: Call<All>, response: Response<All>) {
                 Log.i("llamada1", "La llamada a la api ha funcionado")
+
+            inflater()
             }
 
             override fun onFailure(call: Call<All>, t: Throwable) {

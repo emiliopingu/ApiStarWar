@@ -18,7 +18,7 @@ data class Film(
     @Expose
     var opening_crawl: String? = null,
 
-    @SerializedName("opening_crawl")
+    @SerializedName("director")
     @Expose
     var director: String? = null,
 

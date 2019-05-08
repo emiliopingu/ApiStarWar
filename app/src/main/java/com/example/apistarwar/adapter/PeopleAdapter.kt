@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.apistarwar.R
-import com.example.apistarwar.activitys.SegundaActivity
 import com.example.apistarwar.data.People
 import kotlinx.android.synthetic.main.people_recycle_view_list.view.*
 
@@ -30,11 +29,11 @@ class PeopleAdapter(val context: Context, val personajes:MutableList<People>):  
 
 
 
-            holder.view.planetaView.setOnClickListener {
+          /*  holder.view.planetaView.setOnClickListener {
                 val intent = Intent(context, SegundaActivity::class.java)
                 intent.putExtra("urlPlaneta", personaje.homeworld)
                 context.startActivity(intent)
-            }
+            }*/
 
         }
 
@@ -44,5 +43,3 @@ class PeopleAdapter(val context: Context, val personajes:MutableList<People>):  
 
         inner class viewHolder(val view: View) : RecyclerView.ViewHolder(view)
     }
-
-}
