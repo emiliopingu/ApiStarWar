@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.apistarwar.R
+import com.example.apistarwar.activitys.SegundaVista
 import com.example.apistarwar.data.People
 import kotlinx.android.synthetic.main.people_recycle_view_list.view.*
 
@@ -27,13 +28,27 @@ class PeopleAdapter(val context: Context, val personajes:MutableList<People>):  
             holder.view.naveView.text = personaje.starships.toString()
             holder.view.planetaView.text = personaje.homeworld
 
-
-
-          /*  holder.view.planetaView.setOnClickListener {
-                val intent = Intent(context, SegundaActivity::class.java)
+            holder.view.planetaView.setOnClickListener {
+                val intent = Intent(context, SegundaVista::class.java)
+                intent.putExtra("urlEspecie", personaje.species.toString())
+                context.startActivity(intent)
+            }
+            holder.view.planetaView.setOnClickListener {
+                val intent = Intent(context, SegundaVista::class.java)
+                intent.putExtra("urlVehicles",personaje.vehicles.toString())
+                context.startActivity(intent)
+            }
+            holder.view.planetaView.setOnClickListener {
+                val intent = Intent(context, SegundaVista::class.java)
+                intent.putExtra("urlStarShips", personaje.starships.toString())
+                context.startActivity(intent)
+            }
+            holder.view.planetaView.setOnClickListener {
+                val intent = Intent(context, SegundaVista::class.java)
                 intent.putExtra("urlPlaneta", personaje.homeworld)
                 context.startActivity(intent)
-            }*/
+            }
+
 
         }
 

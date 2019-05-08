@@ -39,7 +39,14 @@ class MainActivity : AppCompatActivity() {
         RetrofitCliente.service.getPeople().enqueue(object : Callback<All> {
             override fun onResponse(call: Call<All>, response: Response<All>) {
                 Log.i("llamada1", "La llamada a la api ha funcionado")
-
+                if (response.isSuccessful) {
+                    val i: Int = response.body()!!.people!!.size
+                    for (character in 0 until i) {
+                        listPeople.add(response.body()!!.people!![character])
+                        Log.i("tag1", "Se ha añadidio")
+                    }
+                    inflater()
+                }
             inflater()
             }
 
