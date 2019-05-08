@@ -7,16 +7,6 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:background="#fcfeff">
-    <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:minHeight="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:titleTextColor="#fff"
-            app:subtitleTextColor="#f5fbff"
-            android:padding="1dp"
-    />
     <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
