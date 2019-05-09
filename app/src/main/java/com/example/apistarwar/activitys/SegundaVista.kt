@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.example.apistarwar.R
 import com.example.apistarwar.adapter.PeopleAdapter
+import com.example.apistarwar.adapter.PlanetAdapter
+import com.example.apistarwar.adapter.SpeciesAdapter
 import com.example.apistarwar.adapter.StarShipsAdapter
 import com.example.apistarwar.api.RetrofitCliente
 import com.example.apistarwar.data.Planet
@@ -44,19 +46,12 @@ class SegundaVista : AppCompatActivity() {
                     Log.i("llamada4", " ha cogido datos de planeta")
                     if (response.isSuccessful) {
                         val planet = response.body()!!
-                        val text: String = "Name : " + planet.name +
-                                "\n" + "Rotacion Period : " + planet.rotation +
-                                "\n" + "Orbital Rotation : " + planet.orbital +
-                                "\n" + "diameter : " + planet.diameter +
-                                "\n" + "climate :  " + planet.climate +
-                                "\n" + "Gravity : " + planet.gravity +
-                                "\n" + "terrain " + planet.terrain +
-                                "\n" + "Surface " + planet.surfaceWater +
-                                "\n" + "population :  " + planet.population +
-                                "\n" + "residents :  " + planet.residents.toString() +
-                                "\n" + "Films :  " + planet.films.toString()
-                        tv.text = text
 
+                            val layoutManager = LinearLayoutManager(this@SegundaVista)
+                            layoutManager.orientation = LinearLayoutManager.VERTICAL
+                            recycleViewPlanet.layoutManager = layoutManager
+                            val adapter = PlanetAdapter (this@SegundaVista, planet)
+                            recycleViewPlanet.adapter = adapter
 
                     }
 
@@ -78,19 +73,12 @@ class SegundaVista : AppCompatActivity() {
                         Log.i("llamada4", " ha cogido datos de Especie")
                         if (response.isSuccessful) {
                             val species = response.body()!!
-                            val text: String = "Name : " + species.name +
-                                    "\n" + "classification  : " + species.classification +
-                                    "\n" + "designation : " + species.designation +
-                                    "\n" + "Average height : " + species.average_height +
-                                    "\n" + "Skin colors :  " + species.skin_colors +
-                                    "\n" + "Hair colors : " + species.hair_colors +
-                                    "\n" + "Eye colors " + species.eye_colors +
-                                    "\n" + "Average lifwSpan " + species.average_lifespan +
-                                    "\n" + "Homeworld :  " + species.homeworld +
-                                    "\n" + "Language :  " + species.language +
-                                    "\n" + "People :  " + species.people.toString() +
-                                    "\n" + "Films : " + species.films.toString()
-                            tv.text = text
+
+                            val layoutManager = LinearLayoutManager(this@SegundaVista)
+                            layoutManager.orientation = LinearLayoutManager.VERTICAL
+                            recycleViewPlanet.layoutManager = layoutManager
+                            val adapter = SpeciesAdapter (this@SegundaVista, species)
+                            recycleViewPlanet.adapter = adapter
 
 
                         }
@@ -130,7 +118,7 @@ class SegundaVista : AppCompatActivity() {
                                     "\n" + "starship_class : " + nave.starship_class +
                                     "\n" + "Pilots : " + nave.pilots +
                                     "\n" + "Films : " + nave.films.toString()
-                            tv.text = text
+
 
 
                         }
@@ -167,7 +155,7 @@ class SegundaVista : AppCompatActivity() {
                                     "\n" + "hyperdrive_rating : " + vehiculo.vehicle_class +
                                     "\n" + "Pilots : " +vehiculo.pilots +
                                     "\n" + "Films : " + vehiculo.films.toString()
-                            tv.text = text
+
 
 
                         }
