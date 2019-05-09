@@ -12,7 +12,7 @@ interface InterfaceApi {
     @GET fun getPlanet(@Url url:String): Call<Planet>
     @GET fun getFilm(@Url url:List<String>): Call<Film>
     @GET fun getSpecies(@Url url:String): Call<Species>
-    @GET fun getStarShip(@Url url:List<String>): Call<Starship>
-    @GET fun getVehicles(@Url url:List<String>): Call<Vehicles>
+    @GET fun getStarShip(@Url url:String): Call<Starship>
+    @GET fun getVehicles(@Url url:String): Call<Vehicles>
 
 }

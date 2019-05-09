@@ -21,8 +21,10 @@ class SegundaVista : AppCompatActivity() {
 
         val urlHomework = intent.getStringExtra("urlPlaneta")
         val urlSpecies = intent.getStringArrayListExtra("urlEspecie")
-        val urlVehicles = intent.getStringArrayExtra("urlVehicles")
-        val urlStarShips = intent.getStringArrayExtra("urlStarShips")
+        val urlVehicles = intent.getStringArrayListExtra("urlVehicles")
+        val urlStarShips = intent.getStringArrayListExtra("urlStarShips")
+
+
         if (urlHomework != null) {
             RetrofitCliente.service.getPlanet(urlHomework).enqueue(object : Callback<Planet> {
                 override fun onFailure(call: Call<Planet>, t: Throwable) {
@@ -93,7 +95,15 @@ class SegundaVista : AppCompatActivity() {
 
         }
 
+        if(urlStarShips!=null){
+                for(x in 0 until urlStarShips.size){
+                    RetrofitCliente.service.getStarShip(urlStarShips[x])
+                }
+        }
 
+        if(urlVehicles!=null){
+
+        }
     }
 
 }

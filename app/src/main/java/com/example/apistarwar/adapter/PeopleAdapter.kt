@@ -17,6 +17,8 @@ class PeopleAdapter(val context: Context, val personajes:MutableList<People>):  
 
 
     val listSpecies:ArrayList<String> = ArrayList()
+    val listStarship:ArrayList<String> = ArrayList()
+    val listVehicles:ArrayList<String> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): viewHolder {
             val view = LayoutInflater.from(context).inflate(R.layout.people_recycle_view_list, parent, false)
             return viewHolder(view)
@@ -47,14 +49,20 @@ class PeopleAdapter(val context: Context, val personajes:MutableList<People>):  
                 }
             }
             holder.view.vehiculoView.setOnClickListener {
-                val intent3 = Intent(context, SegundaVista::class.java)
-                intent3.putExtra("urlVehicles",personaje.vehicles.toString())
-                context.startActivity(intent3)
+                for(x in 0 until personaje.vehicles!!.size) {
+                    listVehicles.add(personaje.vehicles!![x])
+                    val intent3 = Intent(context, SegundaVista::class.java)
+                    intent3.putExtra("urlVehicles", personaje.vehicles.toString())
+                    context.startActivity(intent3)
+                }
             }
             holder.view.naveView.setOnClickListener {
-                val intent4 = Intent(context, SegundaVista::class.java)
-                intent4.putExtra("urlStarShips", personaje.starships.toString())
-                context.startActivity(intent4)
+                for(x in 0 until personaje.starships!!.size) {
+                    listStarship.add(personaje.starships!![x])
+                    val intent4 = Intent(context, SegundaVista::class.java)
+                    intent4.putExtra("urlStarShips", personaje.starships.toString())
+                    context.startActivity(intent4)
+                }
             }
 
 
