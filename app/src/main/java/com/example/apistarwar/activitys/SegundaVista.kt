@@ -11,6 +11,7 @@ import com.example.apistarwar.api.RetrofitCliente
 import com.example.apistarwar.data.Planet
 import com.example.apistarwar.data.Species
 import com.example.apistarwar.data.Starship
+import com.example.apistarwar.data.Vehicles
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_segunda_vista.*
 import retrofit2.Call
@@ -20,7 +21,6 @@ import retrofit2.Response
 
 class SegundaVista : AppCompatActivity() {
 
-    val listStarship2:MutableList<Starship> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +28,9 @@ class SegundaVista : AppCompatActivity() {
 
         val urlHomework = intent.getStringExtra("urlPlaneta")
         val urlSpecies = intent.getStringArrayListExtra("urlEspecie")
-        val urlVehicles = intent.getStringArrayListExtra("urlVehicles")
         val urlStarShips = intent.getStringArrayListExtra("urlStarShips")
+        val urlVehicles = intent.getStringArrayListExtra("urlStarShips")
+
 
 
         if (urlHomework != null) {
@@ -66,7 +67,7 @@ class SegundaVista : AppCompatActivity() {
         }
 
         if (urlSpecies != null) {
-            for( x in 0 until urlSpecies.size){
+            for (x in 0 until urlSpecies.size) {
                 RetrofitCliente.service.getSpecies(urlSpecies[x]).enqueue(object : Callback<Species> {
                     override fun onFailure(call: Call<Species>, t: Throwable) {
                         Log.i("llamada5", "No Ha cogido datos de Especie")
@@ -102,38 +103,82 @@ class SegundaVista : AppCompatActivity() {
 
         }
 
-        if(urlStarShips!=null){
-                for(x in 0 until urlStarShips.size){
+        if (urlStarShips != null) {
+            for (x in 0 until urlStarShips.size) {
+                RetrofitCliente.service.getStarShip(urlStarShips[x]).enqueue(object : Callback<Starship> {
+                    override fun onFailure(call: Call<Starship>, t: Throwable) {
+                        Log.i("llamada5", "No Ha cogido datos de Especie")
 
-                    RetrofitCliente.service.getStarShip(urlStarShips[x]).enqueue(object :Callback<Starship>{
-                        override fun onResponse(call: Call<Starship>, response: Response<Starship>) {
-                            if (response.isSuccessful) {
-                               val s=response.body()
+                    }
 
-                                s?.let { inflatersStarShips(it) }
-                            }
+                    override fun onResponse(call: Call<Starship>, response: Response<Starship>) {
+                        Log.i("llamada4", " ha cogido datos de Especie")
+                        if (response.isSuccessful) {
+                            val nave = response.body()!!
+                            val text: String = "Name : " + nave.name +
+                                    "\n" + "Model : " + nave.model +
+                                    "\n" + "Manufacturer : " + nave.manufacturer +
+                                    "\n" + "cost_in_credits : " + nave.cost_in_credits +
+                                    "\n" + "Lenght : " + nave.length +
+                                    "\n" + "max_atmosphering_speed : " + nave.max_atmosphering_speed +
+                                    "\n" + "crew : " + nave.crew +
+                                    "\n" + "passengers : " + nave.passengers +
+                                    "\n" + "cargo_capacity : " + nave.cargo_capacity +
+                                    "\n" + "consumables : " + nave.consumables +
+                                    "\n" + "hyperdrive_rating : " + nave.hyperdrive_rating +
+                                    "\n" + "MGLT : " + nave.MGLT +
+                                    "\n" + "starship_class : " + nave.starship_class +
+                                    "\n" + "Pilots : " + nave.pilots +
+                                    "\n" + "Films : " + nave.films.toString()
+                            tv.text = text
+
+
                         }
 
-                        override fun onFailure(call: Call<Starship>, t: Throwable) {
-                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+                    }
+
+                })
+            }
+        }
+
+        if (urlVehicles != null) {
+            for (x in 0 until urlVehicles.size) {
+                RetrofitCliente.service.getVehicles(urlVehicles[x]).enqueue(object : Callback<Vehicles> {
+                    override fun onFailure(call: Call<Vehicles>, t: Throwable) {
+                        Log.i("llamada5", "No Ha cogido datos de Especie")
+
+                    }
+
+                    override fun onResponse(call: Call<Vehicles>, response: Response<Vehicles>) {
+                        Log.i("llamada4", " ha cogido datos de Especie")
+                        if (response.isSuccessful) {
+                            val vehiculo = response.body()!!
+                            val text: String = "Name : " + vehiculo.name +
+                                    "\n" + "Model : " + vehiculo.model +
+                                    "\n" + "Manufacturer : " + vehiculo.manufacturer +
+                                    "\n" + "cost_in_credits : " + vehiculo.cost_in_credits +
+                                    "\n" + "Lenght : " + vehiculo.length +
+                                    "\n" + "max_atmosphering_speed : " + vehiculo.max_atmosphering_speed +
+                                    "\n" + "crew : " + vehiculo.crew +
+                                    "\n" + "passengers : " + vehiculo.passengers +
+                                    "\n" + "cargo_capacity : " + vehiculo.cargo_capacity +
+                                    "\n" + "consumables : " + vehiculo.consumables +
+                                    "\n" + "hyperdrive_rating : " + vehiculo.vehicle_class +
+                                    "\n" + "Pilots : " +vehiculo.pilots +
+                                    "\n" + "Films : " + vehiculo.films.toString()
+                            tv.text = text
+
+
                         }
 
-                    })
-                }
+
+                    }
+
+                })
+            }
         }
-
-        if(urlVehicles!=null){
-
-        }
-
     }
-    fun inflatersStarShips(starship: Starship){
-        val layoutManager = LinearLayoutManager(this@SegundaVista)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.layoutManager = layoutManager
-        val adapter = StarShipsAdapter(this@SegundaVista,starship)
-        recyclerView.adapter = adapter
 
-    }
 
 }
