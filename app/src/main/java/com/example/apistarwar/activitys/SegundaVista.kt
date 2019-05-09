@@ -2,11 +2,16 @@ package com.example.apistarwar.activitys
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.example.apistarwar.R
+import com.example.apistarwar.adapter.PeopleAdapter
+import com.example.apistarwar.adapter.StarShipsAdapter
 import com.example.apistarwar.api.RetrofitCliente
 import com.example.apistarwar.data.Planet
 import com.example.apistarwar.data.Species
+import com.example.apistarwar.data.Starship
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_segunda_vista.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,6 +19,8 @@ import retrofit2.Response
 
 
 class SegundaVista : AppCompatActivity() {
+
+    val listStarship2:MutableList<Starship> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,13 +104,36 @@ class SegundaVista : AppCompatActivity() {
 
         if(urlStarShips!=null){
                 for(x in 0 until urlStarShips.size){
-                    RetrofitCliente.service.getStarShip(urlStarShips[x])
+
+                    RetrofitCliente.service.getStarShip(urlStarShips[x]).enqueue(object :Callback<Starship>{
+                        override fun onResponse(call: Call<Starship>, response: Response<Starship>) {
+                            if (response.isSuccessful) {
+                               val s=response.body()
+
+                                s?.let { inflatersStarShips(it) }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Starship>, t: Throwable) {
+                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        }
+
+                    })
                 }
         }
 
         if(urlVehicles!=null){
 
         }
+
+    }
+    fun inflatersStarShips(starship: Starship){
+        val layoutManager = LinearLayoutManager(this@SegundaVista)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        recyclerView.layoutManager = layoutManager
+        val adapter = StarShipsAdapter(this@SegundaVista,starship)
+        recyclerView.adapter = adapter
+
     }
 
 }
