@@ -12,20 +12,21 @@ import com.example.apistarwar.data.People
 import com.example.apistarwar.data.Starship
 import kotlinx.android.synthetic.main.activity_segunda_vista.*
 import kotlinx.android.synthetic.main.people_recycle_view_list.view.*
+import kotlinx.android.synthetic.main.planet_recycle_view_list.view.*
 import kotlinx.android.synthetic.main.starships_recycle_view_list.view.*
 
-class StarShipsAdapter(val context: Context, val naves:Starship):  RecyclerView.Adapter<StarShipsAdapter.viewHolder>() {
+class StarShipsAdapter(val context: Context, val naves:MutableList<Starship>):  RecyclerView.Adapter<StarShipsAdapter.viewHolder>() {
 
-    val people: People? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): viewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.starships_recycle_view_list, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.planet_recycle_view_list, parent, false)
         return viewHolder(view)
     }
 
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        val nave = naves
+        val nave = naves[position]
         val text: String = "Name : " +nave.name+
                 "\n" + "Model : " + nave.model +
                 "\n" + "Manufacture : " + nave.manufacturer +
@@ -41,14 +42,13 @@ class StarShipsAdapter(val context: Context, val naves:Starship):  RecyclerView.
                 "\n" + "Starship_class :  " + nave.starship_class+
                 "\n" + "Pilots :  " + nave.pilots.toString()+
                 "\n" + "Films :  " + nave.films.toString()
-            holder.view.tv.text=text
+          holder.view.dataPlanet.text=text
 
     }
 
 
     override fun getItemCount(): Int {
-
-            return people!!.starships!!.size
+     return naves.size
 
     }
 

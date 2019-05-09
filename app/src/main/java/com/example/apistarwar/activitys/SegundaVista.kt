@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import com.example.apistarwar.R
-import com.example.apistarwar.adapter.PeopleAdapter
-import com.example.apistarwar.adapter.PlanetAdapter
-import com.example.apistarwar.adapter.SpeciesAdapter
-import com.example.apistarwar.adapter.StarShipsAdapter
+import com.example.apistarwar.adapter.*
 import com.example.apistarwar.api.RetrofitCliente
 import com.example.apistarwar.data.Planet
 import com.example.apistarwar.data.Species
@@ -23,7 +20,7 @@ import retrofit2.Response
 
 class SegundaVista : AppCompatActivity() {
 
-
+        val listStarship:MutableList<Starship> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_segunda_vista)
@@ -32,6 +29,7 @@ class SegundaVista : AppCompatActivity() {
         val urlSpecies = intent.getStringArrayListExtra("urlEspecie")
         val urlStarShips = intent.getStringArrayListExtra("urlStarShips")
         val urlVehicles = intent.getStringArrayListExtra("urlStarShips")
+
 
 
 
@@ -92,8 +90,8 @@ class SegundaVista : AppCompatActivity() {
         }
 
         if (urlStarShips != null) {
-            for (x in 0 until urlStarShips.size) {
-                RetrofitCliente.service.getStarShip(urlStarShips[x]).enqueue(object : Callback<Starship> {
+
+                RetrofitCliente.service.getStarShip(urlStarShips).enqueue(object : Callback<Starship> {
                     override fun onFailure(call: Call<Starship>, t: Throwable) {
                         Log.i("llamada5", "No Ha cogido datos de Especie")
 
@@ -103,22 +101,13 @@ class SegundaVista : AppCompatActivity() {
                         Log.i("llamada4", " ha cogido datos de Especie")
                         if (response.isSuccessful) {
                             val nave = response.body()!!
-                            val text: String = "Name : " + nave.name +
-                                    "\n" + "Model : " + nave.model +
-                                    "\n" + "Manufacturer : " + nave.manufacturer +
-                                    "\n" + "cost_in_credits : " + nave.cost_in_credits +
-                                    "\n" + "Lenght : " + nave.length +
-                                    "\n" + "max_atmosphering_speed : " + nave.max_atmosphering_speed +
-                                    "\n" + "crew : " + nave.crew +
-                                    "\n" + "passengers : " + nave.passengers +
-                                    "\n" + "cargo_capacity : " + nave.cargo_capacity +
-                                    "\n" + "consumables : " + nave.consumables +
-                                    "\n" + "hyperdrive_rating : " + nave.hyperdrive_rating +
-                                    "\n" + "MGLT : " + nave.MGLT +
-                                    "\n" + "starship_class : " + nave.starship_class +
-                                    "\n" + "Pilots : " + nave.pilots +
-                                    "\n" + "Films : " + nave.films.toString()
+                            listStarship.add(nave)
 
+                            val layoutManager = LinearLayoutManager(this@SegundaVista)
+                            layoutManager.orientation = LinearLayoutManager.VERTICAL
+                            recycleViewPlanet.layoutManager = layoutManager
+                            val adapter = StarShipsAdapter(this@SegundaVista, listStarship)
+                            recycleViewPlanet.adapter = adapter
 
 
                         }
@@ -127,36 +116,28 @@ class SegundaVista : AppCompatActivity() {
                     }
 
                 })
-            }
+
         }
 
         if (urlVehicles != null) {
             for (x in 0 until urlVehicles.size) {
                 RetrofitCliente.service.getVehicles(urlVehicles[x]).enqueue(object : Callback<Vehicles> {
                     override fun onFailure(call: Call<Vehicles>, t: Throwable) {
-                        Log.i("llamada5", "No Ha cogido datos de Especie")
+                        Log.i("llamada5", "No Ha cogido datos de Vehiculo")
 
                     }
 
                     override fun onResponse(call: Call<Vehicles>, response: Response<Vehicles>) {
-                        Log.i("llamada4", " ha cogido datos de Especie")
+                        Log.i("llamada4", " ha cogido datos de Vehiculo")
                         if (response.isSuccessful) {
                             val vehiculo = response.body()!!
-                            val text: String = "Name : " + vehiculo.name +
-                                    "\n" + "Model : " + vehiculo.model +
-                                    "\n" + "Manufacturer : " + vehiculo.manufacturer +
-                                    "\n" + "cost_in_credits : " + vehiculo.cost_in_credits +
-                                    "\n" + "Lenght : " + vehiculo.length +
-                                    "\n" + "max_atmosphering_speed : " + vehiculo.max_atmosphering_speed +
-                                    "\n" + "crew : " + vehiculo.crew +
-                                    "\n" + "passengers : " + vehiculo.passengers +
-                                    "\n" + "cargo_capacity : " + vehiculo.cargo_capacity +
-                                    "\n" + "consumables : " + vehiculo.consumables +
-                                    "\n" + "hyperdrive_rating : " + vehiculo.vehicle_class +
-                                    "\n" + "Pilots : " +vehiculo.pilots +
-                                    "\n" + "Films : " + vehiculo.films.toString()
 
 
+                            val layoutManager = LinearLayoutManager(this@SegundaVista)
+                            layoutManager.orientation = LinearLayoutManager.VERTICAL
+                            recycleViewPlanet.layoutManager = layoutManager
+                            val adapter = VehiclesAdapter(this@SegundaVista, vehiculo)
+                            recycleViewPlanet.adapter = adapter
 
                         }
 
