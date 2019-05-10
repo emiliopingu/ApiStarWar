@@ -20,7 +20,9 @@ import retrofit2.Response
 
 class SegundaVista : AppCompatActivity() {
 
-        val listStarship:MutableList<Starship> = ArrayList()
+    val listStarship: MutableList<Starship> = ArrayList()
+    val listVehicles: MutableList<Vehicles> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_segunda_vista)
@@ -29,8 +31,8 @@ class SegundaVista : AppCompatActivity() {
         val urlSpecies = intent.getStringArrayListExtra("urlEspecie")
         val urlStarShips = intent.getStringArrayListExtra("urlStarShips")
         val urlVehicles = intent.getStringArrayListExtra("urlStarShips")
-
-
+        inflarListStarship()
+        inflarListVehicles()
 
 
         if (urlHomework != null) {
@@ -45,11 +47,11 @@ class SegundaVista : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val planet = response.body()!!
 
-                            val layoutManager = LinearLayoutManager(this@SegundaVista)
-                            layoutManager.orientation = LinearLayoutManager.VERTICAL
-                            recycleViewPlanet.layoutManager = layoutManager
-                            val adapter = PlanetAdapter (this@SegundaVista, planet)
-                            recycleViewPlanet.adapter = adapter
+                        val layoutManager = LinearLayoutManager(this@SegundaVista)
+                        layoutManager.orientation = LinearLayoutManager.VERTICAL
+                        recycleViewPlanet.layoutManager = layoutManager
+                        val adapter = PlanetAdapter(this@SegundaVista, planet)
+                        recycleViewPlanet.adapter = adapter
 
                     }
 
@@ -75,7 +77,7 @@ class SegundaVista : AppCompatActivity() {
                             val layoutManager = LinearLayoutManager(this@SegundaVista)
                             layoutManager.orientation = LinearLayoutManager.VERTICAL
                             recycleViewPlanet.layoutManager = layoutManager
-                            val adapter = SpeciesAdapter (this@SegundaVista, species)
+                            val adapter = SpeciesAdapter(this@SegundaVista, species)
                             recycleViewPlanet.adapter = adapter
 
 
@@ -90,25 +92,17 @@ class SegundaVista : AppCompatActivity() {
         }
 
         if (urlStarShips != null) {
-
-                RetrofitCliente.service.getStarShip(urlStarShips).enqueue(object : Callback<Starship> {
+            for (x in 0 until urlStarShips.size) {
+                RetrofitCliente.service.getStarShip(urlStarShips[x]).enqueue(object : Callback<Starship> {
                     override fun onFailure(call: Call<Starship>, t: Throwable) {
                         Log.i("llamada5", "No Ha cogido datos de Especie")
 
                     }
-
                     override fun onResponse(call: Call<Starship>, response: Response<Starship>) {
                         Log.i("llamada4", " ha cogido datos de Especie")
                         if (response.isSuccessful) {
                             val nave = response.body()!!
                             listStarship.add(nave)
-
-                            val layoutManager = LinearLayoutManager(this@SegundaVista)
-                            layoutManager.orientation = LinearLayoutManager.VERTICAL
-                            recycleViewPlanet.layoutManager = layoutManager
-                            val adapter = StarShipsAdapter(this@SegundaVista, listStarship)
-                            recycleViewPlanet.adapter = adapter
-
 
                         }
 
@@ -116,7 +110,7 @@ class SegundaVista : AppCompatActivity() {
                     }
 
                 })
-
+            }
         }
 
         if (urlVehicles != null) {
@@ -131,12 +125,12 @@ class SegundaVista : AppCompatActivity() {
                         Log.i("llamada4", " ha cogido datos de Vehiculo")
                         if (response.isSuccessful) {
                             val vehiculo = response.body()!!
-
+                            listVehicles.add(vehiculo)
 
                             val layoutManager = LinearLayoutManager(this@SegundaVista)
                             layoutManager.orientation = LinearLayoutManager.VERTICAL
                             recycleViewPlanet.layoutManager = layoutManager
-                            val adapter = VehiclesAdapter(this@SegundaVista, vehiculo)
+                            val adapter = VehiclesAdapter(this@SegundaVista, listVehicles)
                             recycleViewPlanet.adapter = adapter
 
                         }
@@ -149,5 +143,18 @@ class SegundaVista : AppCompatActivity() {
         }
     }
 
-
+    fun inflarListStarship() {
+        val layoutManager = LinearLayoutManager(this@SegundaVista)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        recycleViewPlanet.layoutManager = layoutManager
+        val adapter = StarShipsAdapter(this@SegundaVista, listStarship)
+        recycleViewPlanet.adapter = adapter
+    }
+    fun inflarListVehicles() {
+        val layoutManager = LinearLayoutManager(this@SegundaVista)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        recycleViewPlanet.layoutManager = layoutManager
+        val adapter = VehiclesAdapter(this@SegundaVista,listVehicles)
+        recycleViewPlanet.adapter = adapter
+    }
 }

@@ -10,7 +10,7 @@ import com.example.apistarwar.data.Starship
 import com.example.apistarwar.data.Vehicles
 import kotlinx.android.synthetic.main.planet_recycle_view_list.view.*
 
-class VehiclesAdapter (val context: Context, val vehiculo: Vehicles):  RecyclerView.Adapter<VehiclesAdapter.viewHolder>() {
+class VehiclesAdapter (val context: Context, val vehiculos: MutableList<Vehicles>):  RecyclerView.Adapter<VehiclesAdapter.viewHolder>() {
 
 
 
@@ -21,7 +21,7 @@ class VehiclesAdapter (val context: Context, val vehiculo: Vehicles):  RecyclerV
 
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-
+        val vehiculo=vehiculos[position]
         val text: String = "Name : " +vehiculo.name+
                 "\n" + "Model : " + vehiculo.model +
                 "\n" + "Manufacture : " + vehiculo.manufacturer +
@@ -40,7 +40,7 @@ class VehiclesAdapter (val context: Context, val vehiculo: Vehicles):  RecyclerV
 
 
     override fun getItemCount(): Int {
-        return 2
+        return vehiculos.size
 
     }
 
