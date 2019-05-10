@@ -21,19 +21,19 @@ class VehiclesAdapter (val context: Context, val vehiculos: MutableList<Vehicles
 
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        val vehiculo=vehiculos[position]
-        val text: String = "Name : " +vehiculo.name+
-                "\n" + "Model : " + vehiculo.model +
-                "\n" + "Manufacture : " + vehiculo.manufacturer +
-                "\n" + "Cost_in_credits : " + vehiculo.cost_in_credits +
-                "\n" + "Length :  " + vehiculo.length +
-                "\n" + "Max_atmosphering_speed : " +vehiculo.max_atmosphering_speed +
-                "\n" + "Crew " + vehiculo.crew +
-                "\n" + "Passengers " + vehiculo.passengers +
-                "\n" + "Cargo_capacity :  " + vehiculo.cargo_capacity +
-                "\n" + "Consumables :  " + vehiculo.consumables +
-                "\n" + "Pilots :  " + vehiculo.pilots.toString()+
-                "\n" + "Films :  " + vehiculo.films.toString()
+        val v=vehiculos[position]
+        val text: String = "Name : " +v.name+
+                "\n" + "Model : " + v.model +
+                "\n" + "Manufacture : " + v.manufacturer +
+                "\n" + "Cost_in_credits : " + v.cost_in_credits +
+                "\n" + "Length :  " + v.length +
+                "\n" + "Max_atmosphering_speed : " +v.max_atmosphering_speed +
+                "\n" + "Crew " + v.crew +
+                "\n" + "Passengers " + v.passengers +
+                "\n" + "Cargo_capacity :  " + v.cargo_capacity +
+                "\n" + "Consumables :  " + v.consumables +
+                "\n" + "Pilots :  " + v.pilots.toString()+
+                "\n" + "Films :  " + v.films.toString()
         holder.view.dataPlanet.text=text
 
     }
@@ -41,7 +41,6 @@ class VehiclesAdapter (val context: Context, val vehiculos: MutableList<Vehicles
 
     override fun getItemCount(): Int {
         return vehiculos.size
-
     }
 
     inner class viewHolder(val view: View) : RecyclerView.ViewHolder(view)

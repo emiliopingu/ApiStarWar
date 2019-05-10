@@ -30,9 +30,9 @@ class SegundaVista : AppCompatActivity() {
         val urlHomework = intent.getStringExtra("urlPlaneta")
         val urlSpecies = intent.getStringArrayListExtra("urlEspecie")
         val urlStarShips = intent.getStringArrayListExtra("urlStarShips")
-        val urlVehicles = intent.getStringArrayListExtra("urlStarShips")
-        inflarListStarship()
-        inflarListVehicles()
+        val urlVehicles = intent.getStringArrayListExtra("urlVehicles")
+
+
 
 
         if (urlHomework != null) {
@@ -95,15 +95,15 @@ class SegundaVista : AppCompatActivity() {
             for (x in 0 until urlStarShips.size) {
                 RetrofitCliente.service.getStarShip(urlStarShips[x]).enqueue(object : Callback<Starship> {
                     override fun onFailure(call: Call<Starship>, t: Throwable) {
-                        Log.i("llamada5", "No Ha cogido datos de Especie")
+                        Log.i("llamada7", "No Ha cogido datos de nave")
 
                     }
                     override fun onResponse(call: Call<Starship>, response: Response<Starship>) {
-                        Log.i("llamada4", " ha cogido datos de Especie")
+                        Log.i("llamada8", " ha cogido datos de nave")
                         if (response.isSuccessful) {
                             val nave = response.body()!!
                             listStarship.add(nave)
-
+                            inflarListStarship()
                         }
 
 
@@ -120,13 +120,12 @@ class SegundaVista : AppCompatActivity() {
                         Log.i("llamada5", "No Ha cogido datos de Vehiculo")
 
                     }
-
                     override fun onResponse(call: Call<Vehicles>, response: Response<Vehicles>) {
-                        Log.i("llamada4", " ha cogido datos de Vehiculo")
+                        Log.i("llamada6", " ha cogido datos de Vehiculo")
                         if (response.isSuccessful) {
                             val vehiculo = response.body()!!
                             listVehicles.add(vehiculo)
-
+                            inflarListVehicles()
 
 
                         }

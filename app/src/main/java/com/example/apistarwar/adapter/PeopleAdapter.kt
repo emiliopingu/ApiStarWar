@@ -52,20 +52,20 @@ class PeopleAdapter(val context: Context, val personajes: MutableList<People>) :
         holder.view.vehiculoView.setOnClickListener {
             for (x in 0 until personaje.vehicles!!.size) {
                 listVehicles.add(personaje.vehicles!![x])
-
+            }
                 val intent3 = Intent(context, SegundaVista::class.java)
                 intent3.putExtra("urlVehicles", listVehicles)
                 context.startActivity(intent3)
-            }
+
         }
         holder.view.naveView.setOnClickListener {
             for (x in 0 until personaje.starships!!.size) {
                 listStarship.add(personaje.starships!![x])
-
+            }
                 val intent4 = Intent(context, SegundaVista::class.java)
                 intent4.putExtra("urlStarShips", listStarship)
                 context.startActivity(intent4)
-            }
+
         }
 
 
