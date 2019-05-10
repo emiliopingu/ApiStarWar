@@ -127,11 +127,7 @@ class SegundaVista : AppCompatActivity() {
                             val vehiculo = response.body()!!
                             listVehicles.add(vehiculo)
 
-                            val layoutManager = LinearLayoutManager(this@SegundaVista)
-                            layoutManager.orientation = LinearLayoutManager.VERTICAL
-                            recycleViewPlanet.layoutManager = layoutManager
-                            val adapter = VehiclesAdapter(this@SegundaVista, listVehicles)
-                            recycleViewPlanet.adapter = adapter
+
 
                         }
 
