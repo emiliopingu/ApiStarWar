@@ -7,10 +7,7 @@ import android.util.Log
 import com.example.apistarwar.R
 import com.example.apistarwar.adapter.*
 import com.example.apistarwar.api.RetrofitCliente
-import com.example.apistarwar.data.Planet
-import com.example.apistarwar.data.Species
-import com.example.apistarwar.data.Starship
-import com.example.apistarwar.data.Vehicles
+import com.example.apistarwar.data.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_segunda_vista.*
 import retrofit2.Call
@@ -22,6 +19,7 @@ class SegundaVista : AppCompatActivity() {
 
     val listStarship: MutableList<Starship> = ArrayList()
     val listVehicles: MutableList<Vehicles> = ArrayList()
+    val listResidents: MutableList<People> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +44,32 @@ class SegundaVista : AppCompatActivity() {
                     Log.i("llamada4", " ha cogido datos de planeta")
                     if (response.isSuccessful) {
                         val planet = response.body()!!
+                        for (x in 0 until planet.residents!!.size) {
+                            RetrofitCliente.service.getResidents(planet.residents!![x])
+                                .enqueue(object : Callback<People> {
+                                    override fun onResponse(call: Call<People>, response: Response<People>) {
+                                        Log.i("llamada9", " ha cogido datos de planeta-people")
+                                        val resident = response.body()
+                                        for (y in 0 until planet.residents!!.size) {
+                                            resident?.let { listResidents.add(it) }
 
-                        val layoutManager = LinearLayoutManager(this@SegundaVista)
-                        layoutManager.orientation = LinearLayoutManager.VERTICAL
-                        recycleViewPlanet.layoutManager = layoutManager
-                        val adapter = PlanetAdapter(this@SegundaVista, planet)
-                        recycleViewPlanet.adapter = adapter
+                                        }
+                                        val layoutManager = LinearLayoutManager(this@SegundaVista)
+                                        layoutManager.orientation = LinearLayoutManager.VERTICAL
+                                        recycleViewPlanet.layoutManager = layoutManager
+                                        val adapter = PlanetAdapter(this@SegundaVista, planet, listResidents)
+                                        recycleViewPlanet.adapter = adapter
+                                    }
+
+                                    override fun onFailure(call: Call<People>, t: Throwable) {
+                                        Log.i("llamada10", " No ha cogido datos de planeta-people")
+                                    }
+
+                                })
+
+
+                        }
+
 
                     }
 
@@ -98,6 +116,7 @@ class SegundaVista : AppCompatActivity() {
                         Log.i("llamada7", "No Ha cogido datos de nave")
 
                     }
+
                     override fun onResponse(call: Call<Starship>, response: Response<Starship>) {
                         Log.i("llamada8", " ha cogido datos de nave")
                         if (response.isSuccessful) {
@@ -120,6 +139,7 @@ class SegundaVista : AppCompatActivity() {
                         Log.i("llamada5", "No Ha cogido datos de Vehiculo")
 
                     }
+
                     override fun onResponse(call: Call<Vehicles>, response: Response<Vehicles>) {
                         Log.i("llamada6", " ha cogido datos de Vehiculo")
                         if (response.isSuccessful) {
@@ -145,11 +165,14 @@ class SegundaVista : AppCompatActivity() {
         val adapter = StarShipsAdapter(this@SegundaVista, listStarship)
         recycleViewPlanet.adapter = adapter
     }
+
     fun inflarListVehicles() {
         val layoutManager = LinearLayoutManager(this@SegundaVista)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         recycleViewPlanet.layoutManager = layoutManager
-        val adapter = VehiclesAdapter(this@SegundaVista,listVehicles)
+        val adapter = VehiclesAdapter(this@SegundaVista, listVehicles)
         recycleViewPlanet.adapter = adapter
     }
 }
+
+

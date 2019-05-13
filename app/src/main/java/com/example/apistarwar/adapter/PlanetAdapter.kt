@@ -13,7 +13,7 @@ import com.example.apistarwar.data.Planet
 import kotlinx.android.synthetic.main.people_recycle_view_list.view.*
 import kotlinx.android.synthetic.main.planet_recycle_view_list.view.*
 
-class PlanetAdapter(val context: Context, val planet: Planet):  RecyclerView.Adapter<PlanetAdapter.viewHolder>() {
+class PlanetAdapter(val context: Context, val planet: Planet , val listPeople: MutableList<People>):  RecyclerView.Adapter<PlanetAdapter.viewHolder>() {
 
 
 
@@ -24,6 +24,7 @@ class PlanetAdapter(val context: Context, val planet: Planet):  RecyclerView.Ada
 
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
+       val people=listPeople[position]
         val text: String = "Name : " + planet.name +
                 "\n" + "Rotacion Period : " + planet.rotation +
                 "\n" + "Orbital Rotation : " + planet.orbital +
@@ -33,7 +34,7 @@ class PlanetAdapter(val context: Context, val planet: Planet):  RecyclerView.Ada
                 "\n" + "terrain " + planet.terrain +
                 "\n" + "Surface " + planet.surfaceWater +
                 "\n" + "population :  " + planet.population +
-                "\n" + "residents :  " + planet.residents.toString() +
+                "\n" + "residents :  " + people.name +
                 "\n" + "Films :  " + planet.films.toString()
         holder.view.dataPlanet.text=text
 

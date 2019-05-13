@@ -14,5 +14,6 @@ interface InterfaceApi {
     @GET fun getSpecies(@Url url:String): Call<Species>
     @GET fun getStarShip(@Url url:String): Call<Starship>
     @GET fun getVehicles(@Url url:String): Call<Vehicles>
+    @GET fun getResidents(@Url url:String): Call<People>
 
 }

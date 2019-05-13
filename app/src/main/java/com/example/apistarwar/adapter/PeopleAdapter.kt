@@ -20,6 +20,7 @@ class PeopleAdapter(val context: Context, val personajes: MutableList<People>) :
     val listStarship: ArrayList<String> = ArrayList()
     val listVehicles: ArrayList<String> = ArrayList()
 
+
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): viewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.people_recycle_view_list, parent, false)
         return viewHolder(view)

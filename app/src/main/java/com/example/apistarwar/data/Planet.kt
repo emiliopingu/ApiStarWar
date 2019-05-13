@@ -46,7 +46,9 @@ data class Planet(
     @Expose
     var residents: List<String>? = null,
 
-    var listResidents:List<People>?=null,
+
+
+    var peoples: People?=null,
 
     @SerializedName("films")
     @Expose
